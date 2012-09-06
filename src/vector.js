@@ -1,5 +1,14 @@
 /*!
- * jVectorMap version 0.1a
+ *
+ * Core framework-independent engine to manipulate with SVG maps.
+ * Supports touch devices, scaling, dragging, inner shadows, VML in case of IE,
+ * etc.
+ *
+ * Copyright 2012, SmartTeleMax team.
+ * Licensed under the MIT license.
+ *
+ *
+ * Based on jVectorMap version 0.1a
  *
  * Copyright 2011, Kirill Lebedev
  * Licensed under the MIT license.
