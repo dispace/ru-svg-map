@@ -5,30 +5,35 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta http-equiv="Content-Language" content="ru" />
 
-    <script type="text/javascript" src="js/mootools-core-1.4.2.js"></script>
-    <script type="text/javascript" src="js/vector.js"></script>
-    <script type="text/javascript" src="js/map_paths_world_new.js"></script>
-    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="../third-party/mootools.js"></script>
+    <script type="text/javascript" src="../src/vector.js"></script>
+    <script type="text/javascript" src="../src/map-mootools.js"></script>
     <script>
     (function(){
-      var maploaded = false, domready = false, data;
+      var domready = false, data, paths;
 
       window.addEvent('domready', function(){
         domready = true;
-        if (maploaded) go();
+        if (data && paths) go();
       });
+      new Request.JSON({
+        'url': '../src/paths/world.json',
+        'onSuccess': function(resp){
+          paths = resp;
+          if (domready && data) go();
+        }
+      }).get();
       new Request.JSON({
         'url': 'data/world.json',
         'onSuccess': function(resp){
           data = resp;
-          maploaded = true;
-          if (domready) go();
+          if (domready && paths) go();
         }
       }).get();
 
       function go(){
           run_map($('map-world'),{
-            'paths': window._map_world,
+            'paths': paths,
             'svg_width': 580, // XXX magic numbers, need to be computed
             'svg_height': 326,
             'maxScale': 'x8'
