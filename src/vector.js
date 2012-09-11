@@ -16,18 +16,9 @@
  */
 (function(){
 
-    var apiParams = {
-        colors: 1,
-        values: 1,
-        backgroundColor: 1,
-        scaleColors: 1,
-        normalizeFunction: 1
-    };
-
     var defaultParams = {
         backgroundColor: '#505050',
         color: '#ffffff',
-        hoverColor: 'black',
         scaleColors: ['#b6d6ff', '#005ace'],
         normalizeFunction: 'linear'
     };
