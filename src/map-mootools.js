@@ -1,3 +1,11 @@
+/*!
+ *
+ * Basic example of map implementation using MooTools framework.
+ *
+ * Copyright 2012, SmartTeleMax Ltd.
+ * Licensed under the MIT license.
+ *
+ */
 function run_map(container, options, style, data){
     /* ============= Map ============= */
     var last_hover, current_scale;

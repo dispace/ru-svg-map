@@ -4,7 +4,7 @@
  * Supports touch devices, scaling, dragging, inner shadows, VML in case of IE,
  * etc.
  *
- * Copyright 2012, SmartTeleMax team.
+ * Copyright 2012, SmartTeleMax Ltd.
  * Licensed under the MIT license.
  *
  *

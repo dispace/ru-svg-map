@@ -1,3 +1,11 @@
+/*!
+ *
+ * Basic example of map implementation using jQuery framework.
+ *
+ * Copyright 2012, SmartTeleMax Ltd.
+ * Licensed under the MIT license.
+ *
+ */
 (function(){
   function run_map(container, options, data){
     var last_hover, current_scale;
