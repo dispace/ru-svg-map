@@ -151,14 +151,19 @@
                 };
                 node.setStroke = function(color, width) {
                     if (color != null) this.setAttribute("stroke", color);
-                    if (width != null) this.setAttribute("stroke-width", width);
+                    if (width != null){
+                      if (/^\d+$/.test(width+'')) { width += 'px'; }
+                      this.setAttribute("stroke-width", width);
+                    }
                     return this;
                 };
                 node.getFill = function(color) {
                     return this.style.getProperty("fill");
                 };
                 node.setOpacity = function(opacity) {
-                    this.setAttribute('fill-opacity', opacity);
+                    if (opacity != null) {
+                      this.setAttribute('fill-opacity', opacity);
+                    }
                     return this;
                 };
             } else {
