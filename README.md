@@ -18,3 +18,6 @@ The package contains:
 * vector.js: universal framework-independent core, providing basic SVG manipulation methods
 * map-jquery.js and map-mootools.js: two example implementations of the map based to vector.js working with two popular frameworks. They can be hacked and customized.
 * path packs for maps of Russia and the world. Paths are verified by %institutename% as corresponding official recognized by Russian Federation state borders
+
+You can see examples at http://smarttelemax.github.com/ru-svg-map/
+
