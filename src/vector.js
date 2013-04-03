@@ -146,8 +146,12 @@
                 node = this.createSvgNode('path');
                 node.setAttribute('d', config.path);
                 node.setFill = function(color) {
+                  if(color){
                     this.setAttribute("fill", color);
-                    return this;
+                  } else {
+                    this.removeAttributeNS(null,'fill');
+                  }
+                  return this;
                 };
                 node.setStroke = function(color, width) {
                     if (color != null) this.setAttribute("stroke", color);
@@ -368,8 +372,8 @@
         this.resize();
 
         this.do_resize = function(){
-            map.width = params.container.width();
-            map.height = params.container.height();
+            map.width = params.container.clientWidth;
+            map.height = params.container.clientHeight;
             map.resize();
             map.canvas.setSize(map.width, map.height);
             map.applyTransform();
@@ -724,19 +728,29 @@
                 options.mousemove.call(target, pageXY(e)); // for IE, since mousemove in IE is called first
                 // options.mouseover.call(this, pageXY(e)); XXX this doesn't work in IE for unknown reason
               });
-              addEvent(path, 'click', function(e){
-                if (map.dragged){ return; }
-                options.click.call(this, e);
-              });
-              addEvent('mouseout', options.unhover);
+              if ($.browser.msie){ // XXX implement natively
+              //if (this.canvas.mode != 'svg'){
+                addEvent(path, 'mouseup', function(e){
+                  if (map.dragged){ return; }
+                  options.click.call(e.target || e.srcElement, e);
+                });
+              } else {
+                addEvent(path, 'click', function(e){
+                  if (map.dragged){ return; }
+                  options.click.call(this, e);
+                });
+              }
+              addEvent(path, 'mouseout', options.unhover);
             }
 
-            addEvent(bubble, 'mousemove', function(e){
-              var target = e.target || e.srcElement;
-              var mouseCoords = pageXY(e);
-              target.style.left = (mouseCoords.pageX + 5) + 'px';
-              //this.style.left = (mouseCoords.pageX + 5) + 'px'; XXX this doesn't work in IE for unknown reason
-             });
+            if(bubble){
+              addEvent(bubble, 'mousemove', function(e){
+                var target = e.target || e.srcElement;
+                var mouseCoords = pageXY(e);
+                target.style.left = (mouseCoords.pageX + 5) + 'px';
+                //this.style.left = (mouseCoords.pageX + 5) + 'px'; XXX this doesn't work in IE for unknown reason
+              });
+            }
           } else {
             var touched = null;
             for(var i=paths.length;i--;){
@@ -763,14 +777,16 @@
               });
             }
 
-            addEvent(bubble, 'touchmove', function(e){
-              this.style.display = 'none';
-              touched = false;
-            });
-            addEvent(bubble, 'touchend', function(e){
-              this.style.display = 'none';
-              options.click.call(this, e);
-            });
+            if(bubble){
+              addEvent(bubble, 'touchmove', function(e){
+                this.style.display = 'none';
+                touched = false;
+              });
+              addEvent(bubble, 'touchend', function(e){
+                this.style.display = 'none';
+                options.click.call(this, e);
+              });
+            }
           }
         },
         addShadowStyle: function(color, dx, dy, blur){
